@@ -14,14 +14,14 @@ import { ApiKeyRepository } from './api/repository/api-key.repository';
   imports: [
     ApiModule, 
     TypeOrmModule.forRoot({
-      type: "mysql",
-      host: "localhost",
-      port: 3306,
-      username: 'root',
-      password: '',
+      type: "postgres",
+      host: "dpg-cqr3hnbv2p9s73bdl120-a",
+      port: 5432,
+      username: 'public_json_user',
+      password: '6SQEbygYnCGwH0dFI5dWbz8BD7AcMJPJ',
       synchronize: true,
       entities: [Api],
-      database: "api"
+      database: "public_json"
     }),TypeOrmModule.forFeature([Api])
   ],
   controllers: [AppController],
