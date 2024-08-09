@@ -1,0 +1,34 @@
+  constructor(
+    @InjectRepository(Api)
+    private apiRepo:  Repository<Api>,
+    private jwtService: JwtService
+  ) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+
+    
+    const request = context.switchToHttp().getRequest();
+
+    const token = this.extractTokenFromHeader(request);
+
+    console.log(token)
+    const apiKey = await this.apiRepo.findOne({where:{apiKey:token}})
+
+    if (!apiKey) throw new UnauthorizedException();
+
+    try {
+      const payload = await this.jwtService.decode(apiKey.apiKey);
+
+      request['user'] = payload;
+
+    } catch {
+      throw new UnauthorizedException();
+    }
+
+    return true;
+  }
+
+  private extractTokenFromHeader(request: Request) {
+    const [type, token] = request.headers.authorization?.split(' ') ?? [];
+    return type === 'Bearer' ? token : undefined;
+  }
