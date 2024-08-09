@@ -27,4 +27,8 @@ export class ApiKeyRepository implements IApiRepository{
     async findKeyApi(apiKey: string): Promise<ApiResult> {
         return this.typeOrm.findOneOrFail({where:{apiKey}})
     }
+
+    async findAllKeyApi(): Promise<ApiResult[]> {
+        return await this.typeOrm.find()
+    }
 }

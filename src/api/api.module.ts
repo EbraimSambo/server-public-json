@@ -9,17 +9,21 @@ import { ApiKeyRepository } from './repository/api-key.repository';
 import { VerifyKeyApiService } from './services/verify-api.service';
 import { ApiAuthGuard } from './guards/api-auth.guard';
 import { JwtService } from '@nestjs/jwt';
+import { ReadApiKeyService } from './services/read-api-key.service';
+import { ReadApiController } from './controllers/read-api.controller';
 
 @Module({
   controllers: [
     ApiController, 
-    CreateApiController
+    CreateApiController,
+    ReadApiController
   ],
   providers: [
     ApiService,
     VerifyKeyApiService,
     CreateApiKeyService,
     ApiKeyRepository,
+    ReadApiKeyService,
     ApiAuthGuard,
     JwtService,
     {
